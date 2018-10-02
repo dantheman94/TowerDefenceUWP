@@ -30,22 +30,24 @@ public class InstanceManager : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-
+    
     public enum EFaction { Ethereal, Faction2, Faction3, Faction4 }
 
     public static InstanceManager Instance;
     
     public Info_Level _Level { get; set; }
     public Info_Difficulty _Difficulty { get; set; }
-    
+
+    public bool _LoadingGameplay { get; private set; }
+
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
     //
     //******************************************************************************************************************************
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     /// <summary>
     //  This is called before Startup().
     /// </summary>
@@ -59,8 +61,15 @@ public class InstanceManager : MonoBehaviour {
         }
 
         Instance = this;
-
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="gameplay"></param>
+    public void SetLoadingType(bool gameplay) { _LoadingGameplay = gameplay; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

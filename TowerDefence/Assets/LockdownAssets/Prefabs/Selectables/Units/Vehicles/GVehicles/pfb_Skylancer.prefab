@@ -26,6 +26,21 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
+  m_StaticEditorFlags: 18
+  m_IsActive: 1
+--- !u!1 &1104823130008472
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4482102849561958}
+  m_Layer: 9
+  m_Name: TargetPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1142117492177084
@@ -43,7 +58,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1206813590143608
 GameObject:
@@ -75,6 +90,8 @@ GameObject:
   - component: {fileID: 143243140599361124}
   - component: {fileID: 195187603869599004}
   - component: {fileID: 114808354717532260}
+  - component: {fileID: 114843306349435532}
+  - component: {fileID: 114647517798228674}
   m_Layer: 9
   m_Name: pfb_Skylancer
   m_TagString: Unit
@@ -114,7 +131,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1259640910516276
 GameObject:
@@ -145,7 +162,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1582255365582100
 GameObject:
@@ -162,7 +179,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1760724988560634
 GameObject:
@@ -226,7 +243,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 0
 --- !u!4 &4048946948860356
 Transform:
@@ -299,6 +316,7 @@ Transform:
   - {fileID: 4545331512158970}
   - {fileID: 4465849182639844}
   - {fileID: 4274904951737094}
+  - {fileID: 4482102849561958}
   m_Father: {fileID: 4048946948860356}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -341,6 +359,19 @@ Transform:
   m_Father: {fileID: 4417546518352026}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4482102849561958
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1104823130008472}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4417546518352026}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4514336512198844
 Transform:
   m_ObjectHideFlags: 1
@@ -364,7 +395,7 @@ Transform:
   m_GameObject: {fileID: 1142117492177084}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 10, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 4417546518352026}
   m_RootOrder: 1
@@ -713,6 +744,23 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+--- !u!114 &114647517798228674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207549510171168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114808354717532260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -739,29 +787,34 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 2
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 0
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 1104823130008472}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 60
+  ShoecaseScale: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1206813590143608}
   DestroyedState: {fileID: 1793202516039086}
-  MaxHitPoints: 100
+  Damagable: 1
+  MaxHitPoints: 120
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
+  QuadMinimap: {fileID: 1142117492177084}
   _WidgetHealthbarScaleX: 40
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 40
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 1142117492177084}
   _ChasingDistance: 300
   TargetWeights:
   - UnitType: 0
@@ -801,14 +854,50 @@ MonoBehaviour:
   IdealAttackRangeMax: 80
   IdealAttackRangeMin: 40
   CanBeStunned: 0
-  HasReachedTarget: 1
+  BarrierDetectionDistance: 20
+  StartingVeterancyLevel: 0
+  XPGrantedOnDeath: 1
+  VetTargetXPs: 05000000080000000c000000
+  VetDamages:
+  - 1
+  - 1.15
+  - 1.3
+  - 1.45
   WeaponObject: {fileID: 1034097206950126}
+  ClampRotation: 0
+  RotationClampMinY: -180
+  RotationClampMaxY: 180
+  RotationClampMinZ: -180
+  RotationClampMaxZ: 180
   Acceleration: 12
   Deceleration: 12
   MaxSpeed: 25
   MaxReverseSpeed: -10
   BaseRotationSpeed: 180
   WeaponRotationSpeed: 50
+--- !u!114 &114843306349435532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207549510171168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 100
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114981888759847866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -868,7 +957,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1207549510171168}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 3.5
   m_Speed: 3.5

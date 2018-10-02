@@ -23,7 +23,8 @@ public class SightCone : MonoBehaviour {
     [Header("-----------------------------------")]
     [Header(" PROPERTIES")]
     [Space]
-    public Ai _AIAttached = null;
+    public Unit _UnitAttached = null;
+    public VehicleGunner _GunnerAttached = null;
 
     //******************************************************************************************************************************
     //
@@ -57,27 +58,40 @@ public class SightCone : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other) {
-        
+
         // Valid worldObject
         WorldObject worldObject = other.gameObject.GetComponent<WorldObject>();
-        if (worldObject != null && _AIAttached != null) {
+        if (worldObject == null) { worldObject = other.gameObject.GetComponentInParent<WorldObject>(); }
+
+        // Unit attached
+        if (worldObject != null && _UnitAttached != null) {
 
             // Enemy team?
-            if (worldObject.Team != _AIAttached.Team && worldObject.Team != GameManager.Team.Undefined) {
-                
-                // Not a squad object?
-                Squad squad = worldObject.GetComponent<Squad>();
-                if (squad == null) {
+            if (worldObject.Team != _UnitAttached.Team && worldObject.Team != GameManager.Team.Undefined) {
 
-                    // Active in the world?
-                    if (worldObject._ObjectState == WorldObject.WorldObjectStates.Active) {
+                // Active in the world?
+                if (worldObject._ObjectState == Abstraction.WorldObjectStates.Active) {
 
-                        // Try to add to target list
-                        _AIAttached.AddPotentialTarget(worldObject);
-                    }
+                    // Try to add to target list
+                    _UnitAttached.AddPotentialTarget(worldObject);
                 }
             }
-        } 
+        }
+
+        // Vehicle gunner attached
+        if (worldObject != null && _GunnerAttached != null) {
+
+            // Enemy team?
+            if (worldObject.Team != _GunnerAttached.Team && worldObject.Team != GameManager.Team.Undefined) {
+
+                // Active in the world?
+                if (worldObject._ObjectState == Abstraction.WorldObjectStates.Active) {
+
+                    // Try to add to target list
+                    _GunnerAttached.AddPotentialTarget(worldObject);
+                }
+            }
+        }
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

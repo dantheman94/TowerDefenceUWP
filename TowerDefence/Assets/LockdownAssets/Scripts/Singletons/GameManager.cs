@@ -37,9 +37,10 @@ public class GameManager : MonoBehaviour {
     [Space]
     public int StartingSupplyCount;
     public int StartingPowerCount;
+    public int StartingTechLevel = 1;
+    [Space]
     public int StartingMaxSupplyCount;
     public int StartingMaxPowerCount;
-    public int StartingTechLevel = 1;
     public int StartingMaxPopulation;
     [Space]
     public int StartingWave = 0;
@@ -77,6 +78,7 @@ public class GameManager : MonoBehaviour {
     public GameObject UnitHealthBar;
     public GameObject BuildingInProgressPanel;
     public GameObject CaptureProgressPanel;
+    public GameObject UnitVeterancyPanel;
 
     [Space]
     [Header("-----------------------------------")]
@@ -118,6 +120,8 @@ public class GameManager : MonoBehaviour {
 
     [HideInInspector]
     public List<Selectable> Selectables { get; set; }
+
+    public bool _CinematicInProgress { get; set; }
 
     [System.Serializable]
     public struct GameObjectPreloading {
@@ -178,6 +182,8 @@ public class GameManager : MonoBehaviour {
 
         // Initialize lists
         Selectables = new List<Selectable>();
+
+        _CinematicInProgress = false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

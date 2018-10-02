@@ -62,7 +62,7 @@ public class Player : MonoBehaviour {
     public CameraFollow _CameraFollow { get; private set; }
     public BuildingSlot SelectedBuildingSlot { get; set; }
     public List<Selectable> SelectedWorldObjects { get; set; }
-    public List<Ai> SelectedUnits { get; set; }
+    public List<Unit> SelectedUnits { get; set; }
 
     // Economy
     public int MaxPopulation { get; set; }
@@ -72,12 +72,14 @@ public class Player : MonoBehaviour {
     public float PowerCount { get; set; }
     public float MaxPowerCount { get; set; }
     public int Level { get; set; }
-    private int Score = 0;
-    private int WavesSurvived = 0;
+    private int _Score = 0;
+    private int _WavesSurvived = 0;
+    private UpgradeManager _UpgradeManager;
+    private ResourceManager _ResourceManager;
 
     // Army
     private List<Base> _Bases;
-    private List<Ai> _Army;
+    private List<Unit> _Army;
     private List<Platoon> _Platoons;
     const int _PlatoonCount = 10;
     
@@ -104,8 +106,8 @@ public class Player : MonoBehaviour {
         _CameraFollow = GetComponent<CameraFollow>();
 
         // Initialize new player entity
-        Score = 0;
-        WavesSurvived = 0;
+        _Score = 0;
+        _WavesSurvived = 0;
 
         SuppliesCount = GameManager.Instance.StartingSupplyCount;
         PowerCount = GameManager.Instance.StartingPowerCount;
@@ -115,6 +117,9 @@ public class Player : MonoBehaviour {
 
         PopulationCount = 0;
         MaxPopulation = GameManager.Instance.StartingMaxPopulation;
+
+        _UpgradeManager = GetComponent<UpgradeManager>();
+        _ResourceManager = GetComponent<ResourceManager>();
 
         // Initialize controller
         switch (_CurrentController) {
@@ -130,8 +135,8 @@ public class Player : MonoBehaviour {
 
         // Create army
         SelectedWorldObjects = new List<Selectable>();
-        SelectedUnits = new List<Ai>();
-        _Army = new List<Ai>();
+        SelectedUnits = new List<Unit>();
+        _Army = new List<Unit>();
         _Bases = new List<Base>();
 
         // Create platoons
@@ -139,7 +144,25 @@ public class Player : MonoBehaviour {
         for (int i = 0; i < _PlatoonCount; i++) { _Platoons.Add(GameManager.Instance.PlatoonUnitsHUD.UnitInfoPanels[i].GetComponent<Platoon>()); }
 
         // Setup camera
-        if(PlayerCamera != null) { PlayerCamera.GetComponent<CameraPlayer>().SetPlayerAttached(this); }
+        if (PlayerCamera != null) { PlayerCamera.GetComponent<CameraPlayer>().SetPlayerAttached(this); }
+
+        // Initialize starting base
+        _Bases.Add(GameManager.Instance.StartingBase);
+        GameManager.Instance.StartingBase.AttachedBuildingSlot.SetBuildingOnSlot(GameManager.Instance.StartingBase);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Called each frame.
+    /// </summary>
+    private void Update() {
+
+        if (!GameManager.Instance._CinematicInProgress) {
+
+            // If there are no bases in the player's list >> Lose the match
+            if (_Bases.Count == 0) { GameManager.Instance.OnGameover(false); }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,19 +191,7 @@ public class Player : MonoBehaviour {
 
         SelectedWorldObjects.Remove(selectable);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /// <summary>
-    //  
-    /// </summary>
-    public void AddToPopulation(Squad squad) {
-
-        // Add to population
-        PopulationCount += squad.CostPopulation;
-        _Army.Add(squad);
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
@@ -197,10 +208,31 @@ public class Player : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
+    //  Removes an army from the player's population
+    /// </summary>
+    /// <param name="ai"></param>
+    public void RemoveFromArmy(Unit unit) {
+
+        if (unit != null) {
+
+            // Remove if from army array
+            _Army.Remove(unit);
+
+            // Remove it from any assigned groups
+            for (int i = 0; i < _Platoons.Count; i++) { _Platoons[i].GetAi().Remove(unit); }
+
+            // Deduct population cost
+            PopulationCount -= unit.CostPopulation;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
     //  
     /// </summary>
     /// <returns></returns>
-    public List<Ai> GetArmy() { return _Army; }
+    public List<Unit> GetArmy() { return _Army; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -216,7 +248,7 @@ public class Player : MonoBehaviour {
     /// Gets waves survived
     /// </summary>
     /// <returns></returns>
-    public int GetWavesSurvived() { return WavesSurvived; }
+    public int GetWavesSurvived() { return _WavesSurvived; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -224,7 +256,53 @@ public class Player : MonoBehaviour {
     /// Gets score
     /// </summary>
     /// <returns></returns>
-    public int GetScore() { return Score; }
+    public int GetScore() { return _Score; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="newBase"></param>
+    public void AddBase(Base newBase) { _Bases.Add(newBase); }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  List<Base>
+    /// returns>
+    public List<Base> GetBaseList() { return _Bases; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="list"></param>
+    public void SetBaseList(List<Base> list) { _Bases = list; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  Returns reference to the Upgrade Manager attached to this player.
+    /// </summary>
+    /// <returns>
+    //  UpgradeManager
+    /// </returns>
+    public UpgradeManager GetUpgradeManager() { return _UpgradeManager; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Returns reference to the Resource Manager attached to this player.
+    /// </summary>
+    /// <returns>
+    //  ResourceManager
+    /// </returns>
+    public ResourceManager GetResourceManager() { return _ResourceManager; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

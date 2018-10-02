@@ -488,16 +488,24 @@ TowerDefence/Library/ShaderCache/
 TowerDefence/Temp/
 TowerDefence/Assets/Temp/
 TowerDefence/Library/
+TowerDefence/Assets/3rdPartyAssets/ProCore/ProBuilder/
 
-# UWP files
+##################################################################
+# The original .gitignore file can be found at
+# https://github.com/github/gitignore/blob/master/Unity.gitignore
+##################################################################
+
+# standard ignores for a Unity Project
+...
+
 # ignore the whole UWP directory
-TowerDefence/UWP**
+TowerDefence/UWP/**
 
 # except we want to keep...
-!TowerDefence/UWP/ScrapyardPhoenix/Assets/*
-!TowerDefence/UWP/ScrapyardPhoenix/Dependencies/*
-!TowerDefence/UWP/ScrapyardPhoenix/Properties/*
-!TowerDefence/UWP/ScrapyardPhoenix/App.cs
-!TowerDefence/UWP/ScrapyardPhoenix/Package.appxmanifest
-!TowerDefence/UWP/ScrapyardPhoenix/project.json
-!TowerDefence/UWP/ScrapyardPhoenix/ScrapyardPhoenix.csproj
+!TowerDefence/UWP/Etheria/Assets/*
+!TowerDefence/UWP/Etheria/Dependencies/*
+!TowerDefence/UWP/Etheria/Properties/*
+!TowerDefence/UWP/Etheria/App.cs
+!TowerDefence/UWP/Etheria/Package.appxmanifest
+!TowerDefence/UWP/Etheria/project.json
+!TowerDefence/UWP/Etheria/Etheria.csproj

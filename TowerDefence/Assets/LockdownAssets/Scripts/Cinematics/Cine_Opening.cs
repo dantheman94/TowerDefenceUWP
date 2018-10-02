@@ -25,6 +25,7 @@ public class Cine_Opening : Cinematic {
     [Header(" OPENING CINEMATIC PROPERTIES")]
     [Space]
     public float CoreOffset = 100f;
+    public float InitialDelayTillFadeIn = 3f;
     public float TimeTillInitialCameraMove = 3f;
     public float StartingBaseOffset = 100f;
     public float MatchStartDelay = 3f;
@@ -82,7 +83,7 @@ public class Cine_Opening : Cinematic {
 
             // Smoothly lerp the view camera's FOV to the target FOV
             float percent = _CurrentLerpTime / _FovLerpTime;
-            ViewCamera.fieldOfView = Mathf.Lerp(Settings.MaxFov, _TargetFov, percent);
+            ///ViewCamera.fieldOfView = Mathf.Lerp(Settings.MaxFov, _TargetFov, percent);
 
             // View camera has reached target
             float dist = Vector3.Distance(ViewCamera.transform.position, _TargetTransform.position);
@@ -97,7 +98,7 @@ public class Cine_Opening : Cinematic {
                     startingBase.CreateRallyPoint();
 
                     _CinematicComplete = true;
-                    _CinematicInProgress = false;
+                    GameManager.Instance._CinematicInProgress = _CinematicInProgress = false;
                 }
             }
         }
@@ -110,11 +111,11 @@ public class Cine_Opening : Cinematic {
     /// </summary>
     public override void StartCinematic() {
         base.StartCinematic();
-
+        
         // Set starting position
         ViewCamera.transform.position = new Vector3(WaveManager.Instance.CentralCore.transform.position.x,
-                                     Settings.MaxCameraHeight,
-                                     WaveManager.Instance.CentralCore.transform.position.z);
+                                                    Settings.MaxCameraHeight,
+                                                    WaveManager.Instance.CentralCore.transform.position.z);
         ViewCamera.transform.position -= ViewCamera.transform.up * CoreOffset;
         ViewCamera.transform.position = new Vector3(ViewCamera.transform.position.x, Settings.MaxCameraHeight, ViewCamera.transform.position.z);
 
@@ -122,10 +123,10 @@ public class Cine_Opening : Cinematic {
         ViewCamera.fieldOfView = Settings.MaxFov;
 
         // Fade screen from black
-        UI_ScreenFade.Instance.StartAnimation(new Color(0, 0, 0, 1), new Color(0, 0, 0, 0), 4f);
+        StartCoroutine(DelayedFadeIn());
 
         // Start coroutine
-        _CinematicInProgress = true;
+        GameManager.Instance._CinematicInProgress = _CinematicInProgress = true;
         StartCoroutine(DelayedCameraMove());
         StartCoroutine(CinematicFinish());
     }
@@ -138,9 +139,27 @@ public class Cine_Opening : Cinematic {
     /// <returns>
     //  IEnumerator
     /// </returns>
+    IEnumerator DelayedFadeIn() {
+
+        // Initialize the screen to full black
+        UI_ScreenFade.Instance.SetScreenColour(Color.black);
+
+        yield return new WaitForSeconds(InitialDelayTillFadeIn);
+
+        // Start camera fade in
+        UI_ScreenFade.Instance.StartAnimation(new Color(0, 0, 0, 1), new Color(0, 0, 0, 0), 4f);
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  Coroutine that waits a few seconds, then sets the target transform for the view camera to lerp to.
+    /// </summary>
+    /// <returns>
+    //  IEnumerator
+    /// </returns>
     IEnumerator DelayedCameraMove() {
 
-        yield return new WaitForSeconds(TimeTillInitialCameraMove);
+        yield return new WaitForSeconds(TimeTillInitialCameraMove + InitialDelayTillFadeIn);
 
         // Set target tranform properties
         _TargetTransform = new GameObject().transform;
@@ -178,6 +197,8 @@ public class Cine_Opening : Cinematic {
 
         // Start match
         WaveManager.Instance.StartNewMatch();
+
+        Destroy(_TargetTransform.gameObject);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

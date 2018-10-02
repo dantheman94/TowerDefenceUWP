@@ -21,7 +21,9 @@ GameObject:
   - component: {fileID: 4900670411933588}
   - component: {fileID: 33516127585031960}
   - component: {fileID: 23304275798438528}
+  - component: {fileID: 65723226671776918}
   - component: {fileID: 114701711299698714}
+  - component: {fileID: 114666076821426546}
   m_Layer: 11
   m_Name: pfb_TownhallSlot
   m_TagString: BuildingSlot
@@ -36,12 +38,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1605634473593036}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -160}
-  m_LocalScale: {x: 20, y: 1, z: 25}
+  m_LocalPosition: {x: 25.9, y: 8.07, z: -200.8}
+  m_LocalScale: {x: 20, y: 0.1, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -314.921, z: 0}
 --- !u!23 &23304275798438528
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -83,6 +85,61 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1605634473593036}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65723226671776918
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1605634473593036}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114666076821426546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1605634473593036}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 1
+  bakeKeys:
+  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  bakeValues:
+  - data:
+    - {x: 0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: -0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: -0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: -0.57735026}
+    - {x: 0.57735026, y: 0.57735026, z: 0.57735026}
+    - {x: 0.57735026, y: -0.57735026, z: 0.57735026}
 --- !u!114 &114701711299698714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,26 +163,34 @@ MonoBehaviour:
   _ObjectState: 4
   Team: 1
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
+  OutlineHighlightedWidth: 4
+  OutlineSelectedWidth: 5
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
+  ShoecaseScale: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 0}
   DestroyedState: {fileID: 0}
+  Damagable: 0
   MaxHitPoints: 100
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
+  QuadMinimap: {fileID: 0}
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  OnDeathEffect: {fileID: 0}
+  ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  MinimapQuad: {fileID: 0}
   OnlyAppearWhenAttachedToBase: 0
   AttachedBase: {fileID: 0}
   AttachedBuilding: {fileID: 0}

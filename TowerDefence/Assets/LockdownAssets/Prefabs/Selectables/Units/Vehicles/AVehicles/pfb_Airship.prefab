@@ -26,7 +26,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1149650769780974
 GameObject:
@@ -36,6 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4695208112276192}
+  - component: {fileID: 65405727074935470}
+  - component: {fileID: 54572093697390526}
   m_Layer: 9
   m_Name: Active
   m_TagString: Untagged
@@ -71,6 +73,21 @@ GameObject:
   - component: {fileID: 114209126415710984}
   m_Layer: 2
   m_Name: SightSphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1517973403909754
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4114451833063662}
+  m_Layer: 9
+  m_Name: TargetPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,6 +171,8 @@ GameObject:
   - component: {fileID: 114783033624894588}
   - component: {fileID: 195345531679988408}
   - component: {fileID: 114909369810655446}
+  - component: {fileID: 114404806787516872}
+  - component: {fileID: 114159814536020118}
   m_Layer: 9
   m_Name: pfb_Airship
   m_TagString: Unit
@@ -161,6 +180,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4114451833063662
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1517973403909754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4695208112276192}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4139023003084844
 Transform:
   m_ObjectHideFlags: 1
@@ -168,7 +200,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855981135212812}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1022.11, y: 0, z: -519.61346}
+  m_LocalPosition: {x: -1022.11, y: 31.5, z: -519.61346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4695208112276192}
@@ -257,6 +289,7 @@ Transform:
   - {fileID: 4847963836368768}
   - {fileID: 4630343100220398}
   - {fileID: 4410257634664610}
+  - {fileID: 4114451833063662}
   m_Father: {fileID: 4139023003084844}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -281,7 +314,7 @@ Transform:
   m_GameObject: {fileID: 1066059873784790}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 10, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 4695208112276192}
   m_RootOrder: 1
@@ -409,6 +442,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1809263736075102}
   m_Mesh: {fileID: 4300002, guid: c6f6bdc7f80329745b1a0a72b23c76fe, type: 3}
+--- !u!54 &54572093697390526
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1149650769780974}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &65405727074935470
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1149650769780974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 5, z: 4}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!95 &95552493719075836
 Animator:
   serializedVersion: 3
@@ -443,6 +503,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114159814536020118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855981135212812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114209126415710984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -479,6 +556,29 @@ MonoBehaviour:
     Weight: 0
   - UnitType: 0
     Weight: 0
+--- !u!114 &114404806787516872
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855981135212812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 100
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114783033624894588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -527,29 +627,34 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 0
   ShowQuadHighlighter: 1
   ShowQuadSelector: 1
+  TargetPoint: {fileID: 1517973403909754}
+  ShowcaseOffsetY: 1
+  ShowcaseFOV: 60
+  ShoecaseScale: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1149650769780974}
   DestroyedState: {fileID: 0}
-  MaxHitPoints: 100
+  Damagable: 1
+  MaxHitPoints: 130
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
   MultiSelectable: 1
   _OffsetY: 0
+  QuadMinimap: {fileID: 1066059873784790}
   _WidgetHealthbarScaleX: 35
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 35
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 1066059873784790}
   _ChasingDistance: 30
   TargetWeights:
   - UnitType: 0
@@ -584,16 +689,29 @@ MonoBehaviour:
     type: 2}
   SecondaryWeapon: {fileID: 0}
   MuzzleLaunchPoints: []
-  MaxAttackingRange: 100
-  IdealAttackRangeMax: 80
-  IdealAttackRangeMin: 40
+  MaxAttackingRange: 80
+  IdealAttackRangeMax: 60
+  IdealAttackRangeMin: 30
   CanBeStunned: 0
-  HasReachedTarget: 1
+  BarrierDetectionDistance: 20
+  StartingVeterancyLevel: 0
+  XPGrantedOnDeath: 1
+  VetTargetXPs: 05000000080000000c000000
+  VetDamages:
+  - 1
+  - 1.15
+  - 1.3
+  - 1.45
   WeaponObject: {fileID: 1809263736075102}
-  Acceleration: 10
-  Deceleration: 8
-  MaxSpeed: 20
-  MaxReverseSpeed: -20
+  ClampRotation: 0
+  RotationClampMinY: -180
+  RotationClampMaxY: 180
+  RotationClampMinZ: -180
+  RotationClampMaxZ: 180
+  Acceleration: 7
+  Deceleration: 5
+  MaxSpeed: 15
+  MaxReverseSpeed: -15
   BaseRotationSpeed: 65
   WeaponRotationSpeed: 15
   ForwardAvoidanceRange: 30
@@ -633,7 +751,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855981135212812}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: -334000983
   m_Radius: 2.5
   m_Speed: 3.5

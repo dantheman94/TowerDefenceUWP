@@ -26,15 +26,17 @@ public class Tower : Building {
     public ETowerType TowerType;
     [Space]
     public GameObject Head = null;
-    public Weapon TowerWeapon = null;
+    public float MaxAttackingRange = 200f;
     public float WeaponAimingSpeed = 5f;
+    [Space]
+    public Weapon TowerWeapon = null;
     public List<GameObject> MuzzleLaunchPoints;
 
     [Space]
     [Header("-----------------------------------")]
     [Header(" TARGETTING OBJECT WEIGHTS")]
     [Space]
-    public Ai.TargetWeight[] TargetWeights = new Ai.TargetWeight[Ai._WeightLength];
+    public Unit.TargetWeight[] TargetWeights = new Unit.TargetWeight[Unit._WeightLength];
 
     //******************************************************************************************************************************
     //
@@ -68,6 +70,10 @@ public class Tower : Building {
 
         // Initialize lists
         _PotentialTargets = new List<WorldObject>();
+
+        // Set fog vision radius
+        FogUnit _FogOfWarSight = GetComponent<FogUnit>();
+        _FogOfWarSight.Radius = MaxAttackingRange * 1.5f;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -192,7 +198,7 @@ public class Tower : Building {
     /// <summary>
     //  
     /// </summary>
-    public void DetermineWeightedTargetFromList(Ai.TargetWeight[] weightList) {
+    public void DetermineWeightedTargetFromList(Unit.TargetWeight[] weightList) {
 
         // Multiple targets to select from
         if (_PotentialTargets.Count > 0) {
@@ -249,34 +255,22 @@ public class Tower : Building {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Checks to see if the specified WorldObject is contained within the list.
     /// </summary>
     /// <param name="target"></param>
     /// <returns>
     //  bool
     /// </returns>
-    public bool IsTargetInPotentialList(WorldObject target) {
-
-        // Look for match
-        bool match = false;
-        for (int i = 0; i < _PotentialTargets.Count; i++) {
-
-            // Match found
-            if (_PotentialTargets[i] == target) {
-
-                match = true;
-                break;
-            }
-        }
-        return match;
-    }
+    public bool IsTargetInPotentialList(WorldObject target) { return _PotentialTargets.Contains(target); }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    //  
+    //  Returns reference to the current attack target for this object.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    //  WorldObject
+    /// </returns>
     public WorldObject GetAttackTarget() { return _AttackTarget; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

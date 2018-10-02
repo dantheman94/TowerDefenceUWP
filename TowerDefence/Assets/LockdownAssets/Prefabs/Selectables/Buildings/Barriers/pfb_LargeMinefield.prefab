@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 4097481720716956}
   - component: {fileID: 114663019025424310}
   - component: {fileID: 114590633991280642}
+  - component: {fileID: 114680841050014318}
   m_Layer: 0
   m_Name: pfb_LargeMinefield
   m_TagString: Building
@@ -104,7 +105,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1756092116221196
 GameObject:
@@ -151,7 +152,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 0
 --- !u!1 &1812663236592736
 GameObject:
@@ -190,7 +191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1230676289992408}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.22, y: 0, z: -0.33}
+  m_LocalPosition: {x: 7.22, y: 0.5, z: -0.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4542504150760584}
@@ -221,7 +222,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1917956205987008}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.23}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4542504150760584}
@@ -234,7 +235,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1756092116221196}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 0, z: -0.4}
+  m_LocalPosition: {x: -8, y: 0.5, z: -0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4542504150760584}
@@ -291,7 +292,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1764609129425016}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.19, y: 0, z: -0.14}
+  m_LocalPosition: {x: -4.19, y: 0.5, z: -0.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4542504150760584}
@@ -304,7 +305,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1228450088374144}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.95, y: 0, z: -0.6}
+  m_LocalPosition: {x: 3.95, y: 0.5, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4542504150760584}
@@ -455,29 +456,35 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
+  ShoecaseScale: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1262227069718946}
   DestroyedState: {fileID: 0}
+  Damagable: 1
   MaxHitPoints: 0
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
+  QuadMinimap: {fileID: 1503111740223578}
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  QuadMinimap: {fileID: 1503111740223578}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
@@ -514,3 +521,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!114 &114680841050014318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259862685359336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 40
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0

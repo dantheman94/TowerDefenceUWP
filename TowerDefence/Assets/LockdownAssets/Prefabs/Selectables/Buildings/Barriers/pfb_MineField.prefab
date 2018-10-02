@@ -86,7 +86,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 0
 --- !u!1 &1447009921086224
 GameObject:
@@ -104,7 +104,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1675224613473028
 GameObject:
@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 4784768230120464}
   - component: {fileID: 114773154519821790}
   - component: {fileID: 114769102189157010}
+  - component: {fileID: 114648893138150262}
   m_Layer: 0
   m_Name: pfb_MineField
   m_TagString: Building
@@ -168,7 +169,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &4331144133041864
 Transform:
@@ -177,7 +178,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1071570753403350}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: -0.23}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4707266618198772}
@@ -245,7 +246,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347874511133302}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.55, y: -2, z: -0.4}
+  m_LocalPosition: {x: -10.55, y: 0.5, z: -0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4707266618198772}
@@ -276,7 +277,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1675224613473028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.22, y: -2, z: -0.33}
+  m_LocalPosition: {x: 7.22, y: 0.5, z: -0.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4707266618198772}
@@ -446,6 +447,29 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114648893138150262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1937062695017790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 40
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114769102189157010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -469,29 +493,35 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
+  ShoecaseScale: 1
   InQueueState: {fileID: 1114594755359282}
   BuildingState: {fileID: 1114594755359282}
   ActiveState: {fileID: 1708082212870266}
   DestroyedState: {fileID: 0}
+  Damagable: 1
   MaxHitPoints: 0
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
+  QuadMinimap: {fileID: 1447009921086224}
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 15
   _WidgetHealthbarOffset: 15
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 15
   _WidgetShieldbarOffset: 22
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.2
-  QuadMinimap: {fileID: 1447009921086224}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1

@@ -91,7 +91,7 @@ public class UnitBuildingCounter : MonoBehaviour {
     /// 
     /// </summary>
     /// <param name="obj"></param>
-    public void setObjectAttached(WorldObject obj) { _WorldObject = obj; }
+    public void SetObjectAttached(WorldObject obj) { _WorldObject = obj; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -99,7 +99,7 @@ public class UnitBuildingCounter : MonoBehaviour {
     /// 
     /// </summary>
     /// <param name="cam"></param>
-    public void setCameraAttached(Camera cam) { _CameraAttached = cam; }
+    public void SetCameraAttached(Camera cam) { _CameraAttached = cam; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

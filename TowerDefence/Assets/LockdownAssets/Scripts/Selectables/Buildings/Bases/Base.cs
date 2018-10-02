@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //******************************
@@ -41,7 +42,6 @@ public class Base : Building {
 
     public enum eBaseType { Outpost, Station, CommandCenter, Headquarters, Minibase }
     protected List<Building> _BuildingList;
-    protected Renderer _MinimapRenderer;
     protected Base _PreviousBase = null;
 
     //******************************************************************************************************************************
@@ -59,8 +59,19 @@ public class Base : Building {
         base.Start();
 
         // Get component references
-        if (QuadMinimap != null) { _MinimapRenderer = QuadMinimap.GetComponent<Renderer>(); }
         _BuildingList = new List<Building>();
+
+        // Set matching team for all the building slots
+        for (int i = 0; i < DepotSlots.Count; i++) {
+
+            DepotSlots[i].Team = Team;
+            DepotSlots[i]._Player = _Player;
+        }
+        for (int i = 0; i < TowerSlots.Count; i++) {
+
+            TowerSlots[i].Team = Team;
+            TowerSlots[i]._Player = _Player;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -96,6 +107,18 @@ public class Base : Building {
                 // Start building it
                 StartBuildingObject(buildingSlot);
             }
+        }
+
+        // Set matching team for all the building slots
+        for (int i = 0; i < DepotSlots.Count; i++) {
+
+            DepotSlots[i].Team = Team;
+            DepotSlots[i]._Player = _Player;
+        }
+        for (int i = 0; i < TowerSlots.Count; i++) {
+
+            TowerSlots[i].Team = Team;
+            TowerSlots[i]._Player = _Player;
         }
     }
 
@@ -181,10 +204,13 @@ public class Base : Building {
     protected override void OnBuilt() {
         base.OnBuilt();
         
-        // Add tech level if required
         if (_Player != null) {
 
+            // Add tech level if required
             if (_Player.Level < TechLevelWhenBuilt) { _Player.Level = TechLevelWhenBuilt; }
+
+            // Add to player's base list
+            _Player.AddBase(_ClonedWorldObject as Base);
         }
 
         // Show any hidden base slots that are linked to the building slot
@@ -192,21 +218,25 @@ public class Base : Building {
 
         // Pass the building queue to the new building   
         Base newBase = _ClonedWorldObject.GetComponent<Base>();
-        for (int i = 0; i < newBase._PreviousBase.GetBuildingQueue().Count; i++) {
+        if (newBase._PreviousBase != null) {
 
-            // BUT DONT ADD OURSELF TO THE QUEUE
-            if (newBase._PreviousBase.GetBuildingQueue()[i] != _ClonedWorldObject) {
+            for (int i = 0; i < newBase._PreviousBase.GetBuildingQueue().Count; i++) {
 
-                // Add to queue
-                newBase.AddToQueue(newBase._PreviousBase.GetBuildingQueue()[i]);
+                // BUT DONT ADD OURSELF TO THE QUEUE
+                if (newBase._PreviousBase.GetBuildingQueue()[i] != _ClonedWorldObject) {
+
+                    // Add to queue
+                    newBase.AddToQueue(newBase._PreviousBase.GetBuildingQueue()[i]);
+                }
             }
-        }
-        // Clear/destroy the previous building's queue
-        newBase._PreviousBase.GetBuildingQueue().Clear();
-        if (UI_BuildingQueueWrapper.Instance.ContainsQueue(newBase._PreviousBase._BuildingQueueUI)) {
 
-            UI_BuildingQueueWrapper.Instance.RemoveFromQueue(newBase._PreviousBase._BuildingQueueUI);
-            Destroy(newBase._PreviousBase._BuildingQueueUI);
+            // Clear/destroy the previous building's queue
+            newBase._PreviousBase.GetBuildingQueue().Clear();
+            if (UI_BuildingQueueWrapper.Instance.ContainsQueue(newBase._PreviousBase._BuildingQueueUI)) {
+
+                UI_BuildingQueueWrapper.Instance.RemoveFromQueue(newBase._PreviousBase._BuildingQueueUI);
+                Destroy(newBase._PreviousBase._BuildingQueueUI);
+            }
         }
 
         // Create a rally point
@@ -222,10 +252,11 @@ public class Base : Building {
     /// <summary>
     //  d
     /// </summary>
-    public override void OnDeath() {
+    public override void OnDeath(WorldObject instigator) {
         
         // This is an enemy base >> remove its building slot from the enemy slot array in the wave manager
         if (Team == GameManager.Team.Attacking) { WaveManager.Instance.EnemyBaseDestroyed(AttachedBuildingSlot.AttachedBase); }
+        else if (Team == GameManager.Team.Defending) { _Player.GetBaseList().Remove(this); }
 
         // Destroy all the attached buildings (towers, depots, etc...)
         for (int i = 0; i < _BuildingList.Count; i++) {
@@ -237,7 +268,7 @@ public class Base : Building {
         _BuildingList.Clear();
 
         // Now we can safely be destroyed
-        base.OnDeath();
+        base.OnDeath(instigator);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 114704496988962668}
   - component: {fileID: 65171219383111548}
   - component: {fileID: 114528292699939548}
+  - component: {fileID: 114132796864847700}
+  - component: {fileID: 114645056289500580}
   m_Layer: 0
   m_Name: pfb_HealingBarricade
   m_TagString: Building
@@ -61,7 +63,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1534587570863484
 GameObject:
@@ -78,7 +80,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &4173166064015894
 Transform:
@@ -243,6 +245,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 24, y: 3, z: 6}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &114132796864847700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072325868059624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 40
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!114 &114528292699939548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,29 +291,35 @@ MonoBehaviour:
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
+  ShoecaseScale: 1
   InQueueState: {fileID: 0}
   BuildingState: {fileID: 0}
   ActiveState: {fileID: 1379714728584166}
   DestroyedState: {fileID: 0}
-  MaxHitPoints: 400
+  Damagable: 1
+  MaxHitPoints: 800
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
   MultiSelectable: 0
   _OffsetY: 0
+  QuadMinimap: {fileID: 1422218092765802}
   _WidgetHealthbarScaleX: 100
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 100
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 1422218092765802}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
@@ -304,6 +335,23 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   BarricadeType: 3
+--- !u!114 &114645056289500580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072325868059624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114704496988962668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -322,7 +370,7 @@ NavMeshObstacle:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1379714728584166}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 15, y: 1.5, z: 3}

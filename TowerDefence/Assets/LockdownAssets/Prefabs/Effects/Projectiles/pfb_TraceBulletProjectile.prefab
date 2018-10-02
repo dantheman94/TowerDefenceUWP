@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114502155778271684}
   - component: {fileID: 199538438811552290}
   - component: {fileID: 198718711815295068}
+  - component: {fileID: 54818131661510762}
   m_Layer: 14
   m_Name: pfb_TraceBulletProjectile
   m_TagString: Untagged
@@ -42,6 +43,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54818131661510762
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1387645197883686}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114502155778271684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,7 +129,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1099769541
+  randomSeed: -589798712
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2611,8 +2627,8 @@ ParticleSystem:
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
-    enabled: 0
-    collisionShape0: {fileID: 0}
+    enabled: 1
+    collisionShape0: {fileID: 4821075290188148}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
     collisionShape3: {fileID: 0}
@@ -2633,7 +2649,7 @@ ParticleSystem:
       properties: 0
   LightsModule:
     enabled: 0
-    ratio: 0
+    ratio: 1
     light: {fileID: 0}
     randomDistribution: 1
     color: 1

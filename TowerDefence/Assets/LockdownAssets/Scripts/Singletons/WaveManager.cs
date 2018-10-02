@@ -31,7 +31,7 @@ public class WaveManager : MonoBehaviour {
     [Space]
     public float StartingDamageModifier = 0.75f;
     public float StartingHealthModifier = 0.7f;
-    public List<Ai> StartingFriendlyUnits = null;
+    public List<Unit> StartingFriendlyUnits = null;
 
     [Space]
     [Header("-----------------------------------")]
@@ -82,7 +82,7 @@ public class WaveManager : MonoBehaviour {
     //      VARIABLES
     //
     //******************************************************************************************************************************
-    
+        
     public enum WaveSeverity { SuperLight, Light, Small, Medium, Heavy, ENUM_COUNT }
     public enum WaveType { GroundTroops, GroundVehicles, MixedGround, AirVehicles, MixedVehicles, Mixed, Boss, ENUM_COUNT }
 
@@ -210,8 +210,9 @@ public class WaveManager : MonoBehaviour {
             StartingFriendlyUnits[i].SetPlayer(GameManager.Instance.Players[0]);
             StartingFriendlyUnits[i].Team = GameManager.Team.Defending;
 
-            if (StartingFriendlyUnits[i] is Unit) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i] as Unit); }
-            if (StartingFriendlyUnits[i] is Squad) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i] as Squad); }
+            if (StartingFriendlyUnits[i] is Unit) { StartingFriendlyUnits[i]._Player.AddToPopulation(StartingFriendlyUnits[i]); }
+
+            StartingFriendlyUnits[i].GetComponent<Unit>().OnSpawn();
         }
     }
 
@@ -250,6 +251,13 @@ public class WaveManager : MonoBehaviour {
 
                 _CurrentSubwaveTime = 0f;
                 SpawnSubwave(GetSubwave());
+            }
+
+            // Wave has been cleared out?
+            if (_CurrentWaveEnemies.Count == 0) {
+
+                WaveComplete();
+                StartNewWave();
             }
 
             // Only non boss waves will start before the current wave is complete
@@ -389,8 +397,6 @@ public class WaveManager : MonoBehaviour {
         int subwaves = _CurrentWaveInfo.Subwaves;
         if (subwaves == 0)  { _TimeTillNextSubwave = _TimeTillNextWave; }
         else                { _TimeTillNextSubwave = _TimeTillNextWave / subwaves; }
-        ///Debug.Log("Amount of subwaves: " + subwaves);
-        ///Debug.Log("Time till next subwave: " + _TimeTillNextSubwave);
 
         // Set the waves lives to max
         for (int i = 0; i < _CurrentWaveInfo.Enemies.Count; i++) {
@@ -449,34 +455,34 @@ public class WaveManager : MonoBehaviour {
     /// <param name="subwaveEnemies"></param>
     private void SpawnSubwave(List<WorldObject> subwaveEnemies) {
 
+        // Notify HUD
+        _CurrentLockdownPad.LockdownPadHud.Flash();
+
+        // Spawn units
         List<Vector3> spawnPositions = _CurrentLockdownPad.GetSpawnLocations(subwaveEnemies.Count);
         for (int i = 0; i < subwaveEnemies.Count; i++) {
 
             GameObject obj = ObjectPooling.Spawn(subwaveEnemies[i].gameObject, spawnPositions[i]);
             Player player = GameManager.Instance.Players[0];
-
-            // Initialize the object as a squad
-            Squad squad = obj.GetComponent<Squad>();
-            if (squad != null) {
-
-                squad.Team = GameManager.Team.Attacking;
-                squad.SetPlayer(player);
-                squad.SpawnUnits(squad);
-                squad.SquadAttackObject(CentralCore.GetAttackObject());
-                squad.CreateHealthBar(squad, player.PlayerCamera);
-
-                _CurrentWaveEnemies.Add(squad);
-            }
-
+            
             // Initialize the object as a unit
             Unit unit = obj.GetComponent<Unit>();
             if (unit != null) {
 
                 unit.Team = GameManager.Team.Attacking;
                 unit.OnSpawn();
-                unit.AgentAttackObject(CentralCore.GetAttackObject());
                 unit.CreateHealthBar(unit, player.PlayerCamera);
 
+                if (unit is AirVehicle) {
+
+                    unit.AgentAttackObject(CentralCore.GetAttackObject());
+                }
+                else {
+
+                    AttackPath path = _CurrentLockdownPad.GetRandomAttackPath();
+                    unit.SetAttackPath(path);
+                    unit.AgentSeekPosition(unit.GetAttackPath().GetFirstNodeWithOffset(), false, false);
+                }
                 _CurrentWaveEnemies.Add(unit);
             }
         }
@@ -624,6 +630,20 @@ public class WaveManager : MonoBehaviour {
     //  List<WorldObject>
     /// </returns>
     public List<WorldObject> GetCurrentWaveEnemies() { return _CurrentWaveEnemies; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    //  
+    /// </summary>
+    /// <param name="friendlyUnit"></param>
+    /// <returns></returns>
+    public float GetWaveDamageModifier(WorldObject obj) {
+
+        // Return the _CurrentDamageModifier if its a defending unit, otherwise return 1f if its an attacking unit
+        if (obj.Team == GameManager.Team.Defending) { return _CurrentDamageModifier; }
+        else { return 1f; }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

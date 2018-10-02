@@ -52,10 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80a813b58a051445abd38d0963ce651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelIndex: 0
-  LevelName: Test Scene
-  LevelDescription: 
-  LevelThumbnailSprite: {fileID: 0}
+  LevelIndex: 2
+  LevelName: Midgard
+  LevelDescription: Even on the edges of all the lands, the volatile etherium proves
+    to be the most sought out resource for all of the worlds inhabitants.
+  LevelThumbnailSprite: {fileID: 21300000, guid: ebe3857ea6398a74eae26a9c9a2e0588,
+    type: 3}
   HoverText: {fileID: 0}
 --- !u!114 &114841784551271276
 MonoBehaviour:
@@ -70,12 +72,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Level: {fileID: 114555998984486396}
   FlyingNavMesh: {fileID: 0}
+  GroundNavMesh: {fileID: 0}
   StartingBase: {fileID: 0}
-  StartingSupplyCount: 10000
-  StartingPowerCount: 10000
-  StartingMaxSupplyCount: 60000
-  StartingMaxPowerCount: 60000
-  StartingTechLevel: 3
+  StartingSupplyCount: 1250
+  StartingPowerCount: 450
+  StartingTechLevel: 1
+  StartingMaxSupplyCount: 100000
+  StartingMaxPowerCount: 100000
   StartingMaxPopulation: 60
   StartingWave: 0
   HUDWrapper: {fileID: 0}
@@ -98,6 +101,8 @@ MonoBehaviour:
   BuildingInProgressPanel: {fileID: 1450678203001116, guid: fdac97a7b32ac224eb51920a9dec0613,
     type: 2}
   CaptureProgressPanel: {fileID: 1624020617670622, guid: a93afcb6feaab6e4f959f93bf2af90eb,
+    type: 2}
+  UnitVeterancyPanel: {fileID: 1275172058734706, guid: fbcf1af3cfb5abd4ba34ae423e72fe2a,
     type: 2}
   RecycleBuilding: {fileID: 1686393191144852, guid: 79277ac9396fb6649b8e74d19bdac0b4,
     type: 2}

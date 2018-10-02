@@ -7,7 +7,7 @@ using UnityEngine;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 8/15/2018
+//  Last edited on: 11/9/2018
 //
 //******************************
 
@@ -24,7 +24,7 @@ public class RecycleBuilding : Abstraction {
 
     //******************************************************************************************************************************
     //
-    //      VARIABLES
+    //      FUNCTIONS
     //
     //******************************************************************************************************************************
 
@@ -46,17 +46,19 @@ public class RecycleBuilding : Abstraction {
         // Valid building check
         if (_BuildingToRecycle != null) {
 
-            _BuildingToRecycle.SetIsSelected(false);
+            // Show the confirm screen popup
+            GameObject confirmScreen = GameManager.Instance.ConfirmRecycleScreen;
+            if (confirmScreen != null) {
 
-            // Remove the building from any queues it is currently in
-            if (buildingSlot.AttachedBase != null)          { buildingSlot.AttachedBase.RemoveFromQueue(_BuildingToRecycle); }
-            if (buildingSlot.GetBuildingOnSlot() != null)   { buildingSlot.GetBuildingOnSlot().RemoveFromQueue(_BuildingToRecycle); }
+                UI_RecycleScreenConfirmation recycleScreen = confirmScreen.GetComponent<UI_RecycleScreenConfirmation>();
+                if (recycleScreen != null) {
 
-            // Recycle building
-            _BuildingToRecycle.RecycleBuilding();
-
-            // Free resources by destroying this instance (if needed)
-            if (_ToBeDestroyed) { Destroy(this.gameObject); }
+                    recycleScreen.SetBuildingSlotInFocus(buildingSlot);
+                    recycleScreen.SetBuildingToRecycle(_BuildingToRecycle);
+                    recycleScreen.SetRecycleClass(this);
+                    recycleScreen.gameObject.SetActive(true);
+                }
+            }
         }
         else { Debug.Log("_BuildingToRecycle == null"); }
     }
@@ -76,6 +78,16 @@ public class RecycleBuilding : Abstraction {
     /// </summary>
     /// <param name="value"></param>
     public void SetToBeDestroyed(bool value) { _ToBeDestroyed = value; }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /// <summary>
+    //  
+    /// </summary>
+    /// <returns>
+    //  bool
+    /// </returns>
+    public bool GetToBeDestroyed() { return _ToBeDestroyed; }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -27,7 +27,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 0
 --- !u!1 &1348181821997930
 GameObject:
@@ -61,7 +61,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1868823678480596
 GameObject:
@@ -79,7 +79,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1870176042156110
 GameObject:
@@ -92,6 +92,8 @@ GameObject:
   - component: {fileID: 114839581737877950}
   - component: {fileID: 65451070734554682}
   - component: {fileID: 114832618223206602}
+  - component: {fileID: 114896406470476868}
+  - component: {fileID: 114301590621698694}
   m_Layer: 0
   m_Name: pfb_Barracks
   m_TagString: Building
@@ -347,8 +349,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15, y: 5, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Size: {x: 15, y: 8, z: 10}
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!95 &95246302173747746
 Animator:
   serializedVersion: 3
@@ -383,6 +385,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114301590621698694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870176042156110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &114832618223206602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,43 +418,49 @@ MonoBehaviour:
   ObjectDescriptionLong: 
   Logo: {fileID: 0}
   BuildingTime: 20
-  CostSupplies: 0
+  CostSupplies: 300
   CostPower: 0
   CostTechLevel: 1
   CostPopulation: 0
   _ObjectState: 0
   Team: 0
   _Player: {fileID: 0}
-  FogOfWarRadius: 400
   ShowSelectionGUI: 1
-  ShowQuadHighlighter: 1
-  ShowQuadSelector: 1
+  ShowOutline: 1
+  OutlineHighlightedWidth: 2
+  OutlineSelectedWidth: 3
+  TargetPoint: {fileID: 0}
+  ShowcaseOffsetY: 0
+  ShowcaseFOV: 40
+  ShoecaseScale: 1
   InQueueState: {fileID: 1974443520701994}
   BuildingState: {fileID: 1974443520701994}
   ActiveState: {fileID: 1348181821997930}
   DestroyedState: {fileID: 0}
-  MaxHitPoints: 200
+  Damagable: 1
+  MaxHitPoints: 250
   MaxShieldPoints: 0
   Garrisonable: 0
   MaxGarrisonPopulation: 0
-  MultiSelectable: 1
+  MultiSelectable: 0
   _OffsetY: 0
+  QuadMinimap: {fileID: 0}
   _WidgetHealthbarScaleX: 60
   _WidgetHealthbarScaleY: 10
   _WidgetHealthbarOffset: 0
   _WidgetShieldbarScaleX: 60
   _WidgetShieldbarScaleY: 10
   _WidgetShieldbarOffset: 10
+  OnDeathEffect: {fileID: 0}
   ShrinkWhenDestroyed: 1
   ShrinkSpeed: 0.3
-  QuadMinimap: {fileID: 0}
   AttachedBuildingSlot: {fileID: 0}
   ObjectHeight: 15
   HasABuildingQueue: 1
   Selectables:
   - {fileID: 0}
-  - {fileID: 114321492504333980, guid: ff2e544a035e3134aa61515841e03126, type: 2}
-  - {fileID: 114637479626047606, guid: b0b553943343fae4e89f6bffadf50807, type: 2}
+  - {fileID: 114590780585830690, guid: 129547c43d7b02145a5826b2dadb970e, type: 2}
+  - {fileID: 114908419093975514, guid: f9386fdae783087469d75d32e64a58ed, type: 2}
   - {fileID: 114963470945021714, guid: b428dfdc6baddce46b81aed55d5c7396, type: 2}
   - {fileID: 0}
   - {fileID: 114086916006409686, guid: 79277ac9396fb6649b8e74d19bdac0b4, type: 2}
@@ -455,6 +480,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagArray: []
+--- !u!114 &114896406470476868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870176042156110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fef8ad8a83ba874eaa952e0960d4788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 0
+  Offset: {x: 0, y: 0}
+  Radius: 30
+  InnerRadius: 0.694
+  Angle: 180
+  Texture: {fileID: 0}
+  RotateToForward: 0
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  LineOfSightPenetration: 0
+  AntiFlicker: 0
 --- !u!208 &208020345878574892
 NavMeshObstacle:
   m_ObjectHideFlags: 1
@@ -464,11 +512,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 7.5, y: 2.5, z: 5}
+  m_Extents: {x: 7.5, y: 4, z: 5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Center: {x: 0, y: 4, z: 0}
   m_TimeToStationary: 0.5
 --- !u!208 &208293180450469710
 NavMeshObstacle:
@@ -479,9 +527,9 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 7.5, y: 2.5, z: 5}
+  m_Extents: {x: 7.5, y: 4, z: 5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Center: {x: 0, y: 4, z: 0}
   m_TimeToStationary: 0.5

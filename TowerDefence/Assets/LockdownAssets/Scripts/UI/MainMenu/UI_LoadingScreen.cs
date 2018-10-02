@@ -8,11 +8,12 @@ using UnityEngine.UI;
 //  Created by: Daniel Marton
 //
 //  Last edited by: Daniel Marton
-//  Last edited on: 29/7/2018
+//  Last edited on: 18/9/2018
 //
 //******************************
 
-public class UI_LoadingScreen : MonoBehaviour {
+public class UI_LoadingScreen : MonoBehaviour
+{
 
     //******************************************************************************************************************************
     //
@@ -22,7 +23,10 @@ public class UI_LoadingScreen : MonoBehaviour {
 
     [Space]
     [Header("-----------------------------------")]
-    [Header(" PLAYERS")]
+    [Header(" USER INTERFACE")]
+    [Space]
+    public GameObject LoadingGameplayScreen = null;
+    public GameObject LoadingMainmenuScreen = null;
     [Space]
     public Text LevelName = null;
     public Text LevelDescription = null;
@@ -31,7 +35,9 @@ public class UI_LoadingScreen : MonoBehaviour {
     [Space]
     public Slider LoadingProgressSlider = null;
     public Text LoadingText = null;
-
+    [Space]
+    public Image XboxButton;
+    
     //******************************************************************************************************************************
     //
     //      FUNCTIONS
@@ -44,6 +50,20 @@ public class UI_LoadingScreen : MonoBehaviour {
     //  Called each frame. 
     /// </summary>
     private void Update() {
+
+        // Update loading screen panel widgets
+        if (InstanceManager.Instance._LoadingGameplay) {
+
+            // Show gameplay loading screen
+            if (LoadingGameplayScreen != null) { LoadingGameplayScreen.SetActive(true); }
+            if (LoadingMainmenuScreen != null) { LoadingMainmenuScreen.SetActive(false); }
+        }
+        else {
+
+            // Show mainmenu loading screen
+            if (LoadingGameplayScreen != null) { LoadingGameplayScreen.SetActive(false); }
+            if (LoadingMainmenuScreen != null) { LoadingMainmenuScreen.SetActive(true); }
+        }
 
         // Update level name text
         if (LevelName != null) { LevelName.text = InstanceManager.Instance._Level.LevelName.ToUpper(); }
@@ -77,12 +97,20 @@ public class UI_LoadingScreen : MonoBehaviour {
             // Load is complete and waiting for activation
             if (progress >= 0.9f) {
 
-                LoadingText.text = "PRESS [SPACE] TO CONTINUE";
+                // Gamepad connected
+                if (GamepadManager.Instance.GetGamepad(1).IsConnected) {
 
-                // Activate level
-                ///if (Input.GetKeyDown(KeyCode.Space)) { ASyncLoading.Instance.ActivateLevel(); }
+                    LoadingText.text = "PRESS        TO CONTINUE";
+                }
 
-                ASyncLoading.Instance.ActivateLevel();
+                // Keyboard input
+                else {
+
+                    LoadingText.text = "PRESS [SPACE] TO CONTINUE";
+                }
+
+                // Activate level once valid input is recieved
+                if (Input.GetKeyDown(KeyCode.Space) || GamepadManager.Instance.GetGamepad(1).GetButtonDown("A")) { ASyncLoading.Instance.ActivateLevel(); }
             }
             else { LoadingText.text = "LOADING"; }
         }
@@ -90,5 +118,5 @@ public class UI_LoadingScreen : MonoBehaviour {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
 }
