@@ -41322,6 +41322,61 @@ PrefabInstance:
       propertyPath: deviceInfoCounter.enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114061185245775254, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: labelsFont
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 1447342186383451701, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447342186383451701, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447342186383451701, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447342186383451701, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447342186383451701, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447342186383451701, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -540
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061185245775254, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: autoScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061185245775254, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: countersSpacing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061185245775254, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: paddingOffset.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061185245775254, guid: dfc6fadffaecd67449726e515a036675,
+        type: 3}
+      propertyPath: paddingOffset.y
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfc6fadffaecd67449726e515a036675, type: 3}
 --- !u!1001 &1957168137
