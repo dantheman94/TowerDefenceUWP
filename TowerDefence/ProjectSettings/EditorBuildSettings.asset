@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/LockdownAssets/Scenes/MainMenu.unity
     guid: cdbb9cce7ce8e4545af98febb8658e05
-  - enabled: 1
+  - enabled: 0
     path: Assets/LockdownAssets/Scenes/LoadingScreen.unity
     guid: e36da32307362c346851165721c6785e
   - enabled: 1
@@ -17,3 +17,4 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/LockdownAssets/Scenes/TestScene.unity
     guid: 12106ea26bb22704e9fc56c619328e13
+  m_configObjects: {}

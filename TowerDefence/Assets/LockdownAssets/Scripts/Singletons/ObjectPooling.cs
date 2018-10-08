@@ -358,7 +358,7 @@ public static class ObjectPooling {
 
             if (obj.hideFlags == HideFlags.NotEditable || obj.hideFlags == HideFlags.HideAndDontSave) { continue; }
 
-            if (!EditorUtility.IsPersistent(obj.transform.root.gameObject)) { continue; }
+            //if (!EditorUtility.IsPersistent(obj.transform.root.gameObject)) { continue; }
 
             objectsInScene.Add(obj);
         }
